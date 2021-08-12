@@ -4,12 +4,12 @@ import (
 	"context"
 )
 
-var disabledLogger *Logger
+var DisabledLogger *Logger
 
 func init() {
 	SetGlobalLevel(TraceLevel)
 	l := Nop()
-	disabledLogger = &l
+	DisabledLogger = &l
 }
 
 type ctxKey struct{}
@@ -44,5 +44,5 @@ func Ctx(ctx context.Context) *Logger {
 	if l, ok := ctx.Value(ctxKey{}).(*Logger); ok {
 		return l
 	}
-	return disabledLogger
+	return DisabledLogger
 }

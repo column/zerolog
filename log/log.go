@@ -125,7 +125,11 @@ func Printf(format string, v ...interface{}) {
 }
 
 // Ctx returns the Logger associated with the ctx. If no logger
-// is associated, a disabled logger is returned.
+// is associated, the global logger is returned.
 func Ctx(ctx context.Context) *zerolog.Logger {
-	return zerolog.Ctx(ctx)
+	l := zerolog.Ctx(ctx)
+	if l == zerolog.DisabledLogger {
+		return &Logger
+	}
+	return l
 }
